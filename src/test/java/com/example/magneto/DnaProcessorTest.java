@@ -1,6 +1,9 @@
 package com.example.magneto;
 
-import com.example.magneto.Model.DnaProcessor;
+import com.example.magneto.Model.DnaProcessor.DiagonalDnaProcessor;
+import com.example.magneto.Model.DnaProcessor.DnaProcessor;
+import com.example.magneto.Model.DnaProcessor.HorizontalDnaProcessor;
+import com.example.magneto.Model.DnaProcessor.VerticalDnaProcessor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +17,10 @@ public class DnaProcessorTest {
 
     private DnaProcessor mockProcessor;
     private String[] dna;
+    private String[] dnaTransform;
+    private VerticalDnaProcessor verticalProcessor;
+    private HorizontalDnaProcessor horizontalProcessor;
+    private DiagonalDnaProcessor diagonalProcessor;
 
     @Before
     public void SetUp(){
@@ -23,8 +30,11 @@ public class DnaProcessorTest {
                 return rows;
             }
         };
-
         dna = new String[] {"AAATAAA","GHGGGG","GTGGHHH"};
+        verticalProcessor = new VerticalDnaProcessor();
+        horizontalProcessor = new HorizontalDnaProcessor();
+        diagonalProcessor = new DiagonalDnaProcessor();
+        dnaTransform = new String[]{"ABC","DEF","GHI"};
     }
 
     @Test
@@ -83,6 +93,36 @@ public class DnaProcessorTest {
         int count = mockProcessor.analyseDna(dna,3,3);
 
         Assert.assertEquals(3,count,0);
+    }
+
+    @Test
+    public void verticalProcessorTransformation(){
+        String[] output = verticalProcessor.transformDnaRows(dnaTransform,0);
+
+        Assert.assertEquals(3, output.length,0);
+        Assert.assertEquals("ADG",output[0]);
+        Assert.assertEquals("BEH",output[1]);
+        Assert.assertEquals("CFI",output[2]);
+    }
+
+    @Test
+    public void HorizontalProcessorTransformation(){
+        String[] output = horizontalProcessor.transformDnaRows(dnaTransform,0);
+
+        Assert.assertEquals(3, output.length,0);
+        Assert.assertEquals("ABC",output[0]);
+        Assert.assertEquals("DEF",output[1]);
+        Assert.assertEquals("GHI",output[2]);
+    }
+
+    @Test
+    public void DiagonalProcessorTransformation(){
+        String[] output = diagonalProcessor.transformDnaRows(dnaTransform,2);
+
+        Assert.assertEquals(3, output.length,0);
+        Assert.assertEquals("AEI",output[0]);
+        Assert.assertEquals("DH",output[1]);
+        Assert.assertEquals("BF",output[2]);
     }
 
 }

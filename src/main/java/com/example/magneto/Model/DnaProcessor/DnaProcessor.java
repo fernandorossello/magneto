@@ -1,4 +1,4 @@
-package com.example.magneto.Model;
+package com.example.magneto.Model.DnaProcessor;
 
 public abstract class DnaProcessor {
 
@@ -52,5 +52,4 @@ public abstract class DnaProcessor {
 
         return found;
     }
-
 }

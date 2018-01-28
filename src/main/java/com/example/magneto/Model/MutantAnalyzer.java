@@ -1,5 +1,7 @@
 package com.example.magneto.Model;
 
+import com.example.magneto.Model.DnaProcessor.DnaProcessor;
+
 import java.util.ArrayList;
 import java.util.List;
 
