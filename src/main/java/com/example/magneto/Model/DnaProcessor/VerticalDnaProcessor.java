@@ -1,7 +1,5 @@
 package com.example.magneto.Model.DnaProcessor;
 
-import com.example.magneto.Model.DNA;
-
 public class VerticalDnaProcessor extends DnaProcessor {
 
     @Override
