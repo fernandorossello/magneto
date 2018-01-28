@@ -34,6 +34,13 @@ public class DnaProcessorTest {
     }
 
     @Test
+    public void findsSequencesIfTheyAreSeparated(){
+        int count = processor.countSequences("AAATAAA",3);
+
+        Assert.assertEquals(2, count, 0);
+    }
+
+    @Test
     public void findsNoSequences(){
         int count = processor.countSequences("AAATNRA",4);
 
