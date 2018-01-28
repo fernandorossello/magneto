@@ -2,8 +2,27 @@ package com.example.magneto.Model;
 
 public abstract class DnaProcessor {
 
+    public int analyseDna(String[] rows,int consecutiveChars, int searchedSequences){
 
-    public int countSequences(String toAnalyze, int consecutiveChars){
+        int found = 0;
+
+        String[] transformedDna = transformDnaRows(rows,consecutiveChars);
+
+        for (String item :transformedDna) {
+
+            found += countSequences(item,consecutiveChars,searchedSequences);
+
+            if(found >= searchedSequences){
+                break;
+            }
+        }
+
+        return found;
+    }
+
+    public abstract String[] transformDnaRows(String[] rows,int consecutiveChars);
+
+    public int countSequences(String toAnalyze, int consecutiveChars,int searchedSequences){
         int size = toAnalyze.length();
         int stop = size -1;
         int count = 1;
@@ -20,6 +39,10 @@ public abstract class DnaProcessor {
             if(count == consecutiveChars){
                 found++;
                 count=0;
+
+                if(found == searchedSequences){
+                    return found;
+                }
             }
         }
 

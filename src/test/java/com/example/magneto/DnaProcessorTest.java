@@ -12,47 +12,77 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class DnaProcessorTest {
 
-    private DnaProcessor processor;
+    private DnaProcessor mockProcessor;
+    private String[] dna;
 
     @Before
     public void SetUp(){
-        processor = new DnaProcessor(){};
+        mockProcessor = new DnaProcessor(){
+            @Override
+            public String[] transformDnaRows(String[] rows, int consecutiveChars) {
+                return rows;
+            }
+        };
+
+        dna = new String[] {"AAATAAA","GHGGGG","GTGGHHH"};
     }
 
     @Test
     public void findsOneSequence(){
-        int count = processor.countSequences("AAATNRA",2);
+        int count = mockProcessor.countSequences("AAATNRA",2,2);
 
         Assert.assertEquals(1, count, 0);
     }
 
     @Test
     public void findsTwoSequencesIfTheyAreTogether(){
-        int count = processor.countSequences("AAAAAA",3);
+        int count = mockProcessor.countSequences("AAAAAA",3,2);
 
         Assert.assertEquals(2, count, 0);
     }
 
     @Test
     public void findsSequencesIfTheyAreSeparated(){
-        int count = processor.countSequences("AAATAAA",3);
+        int count = mockProcessor.countSequences("AAATAAA",3,2);
 
         Assert.assertEquals(2, count, 0);
     }
 
     @Test
     public void findsNoSequences(){
-        int count = processor.countSequences("AAATNRA",4);
+        int count = mockProcessor.countSequences("AAATNRA",4,2);
 
         Assert.assertEquals(0, count, 0);
     }
 
     @Test
     public void findsSequenceAtTheEndOfTheString(){
-        int count = processor.countSequences("ATNRAAA",3);
+        int count = mockProcessor.countSequences("ATNRAAA",3,2);
 
         Assert.assertEquals(1, count, 0);
     }
 
+    @Test
+    public void stopsIfFindsSearchedSequences(){
+        int count = mockProcessor.countSequences("AAATAAA",3,1);
+
+        Assert.assertEquals(1, count, 0);
+    }
+
+    @Test
+    public void findsLessSequencesThanSearched(){
+
+        int count = mockProcessor.analyseDna(dna,3,5);
+
+        Assert.assertEquals(4,count,0);
+    }
+
+    @Test
+    public void findsJustSearchedSequences(){
+
+        int count = mockProcessor.analyseDna(dna,3,3);
+
+        Assert.assertEquals(3,count,0);
+    }
 
 }
