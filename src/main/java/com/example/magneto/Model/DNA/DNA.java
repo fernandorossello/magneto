@@ -2,23 +2,36 @@ package com.example.magneto.Model.DNA;
 
 import com.example.magneto.Utils.Exceptions.InvalidDNAException;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class DNA {
 
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    private List<IDNAValidation> validations;
+    @Column(name = "dna")
+    private String dnaString;
+
+    @Column
     private boolean isMutant = false;
+
+    @Transient
+    private List<IDNAValidation> validations;
+
+    @Transient
+    private String[] dnaSecuence;
 
     public DNA(String[] dna){
         dnaSecuence = dna;
+        dnaString = String.join("-",dna);
         validations = new ArrayList<>();
         validations.add(new SizeValidation());
         validations.add(new CharValidation());
     }
-
-    private String[] dnaSecuence;
 
     public boolean isMutant() {
         return isMutant;
