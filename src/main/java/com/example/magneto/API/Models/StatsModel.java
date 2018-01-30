@@ -39,7 +39,7 @@ public class StatsModel {
         count_human_dna = stats.getHumansCount();
         count_mutant_dna = stats.getMutantsCount();
         if(count_human_dna == 0){
-            ratio = 1;
+            ratio = 0;
         } else {
             ratio = count_mutant_dna / count_human_dna;
         }

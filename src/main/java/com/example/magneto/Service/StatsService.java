@@ -19,6 +19,7 @@ public class StatsService {
 
         if(dna.isMutant()){
             stats.addMutant();
+            stats.addHuman();
         } else  {
             stats.addHuman();
         }
