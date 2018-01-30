@@ -8,7 +8,7 @@ public class StatsModel {
 
     private int count_human_dna;
 
-    private float ratio;
+    private double ratio;
 
     public int getCount_human_dna() {
         return count_human_dna;
@@ -18,11 +18,11 @@ public class StatsModel {
         this.count_human_dna = count_human_dna;
     }
 
-    public float getRatio() {
+    public double getRatio() {
         return ratio;
     }
 
-    public void setRatio(float ratio) {
+    public void setRatio(double ratio) {
         this.ratio = ratio;
     }
 
@@ -41,7 +41,7 @@ public class StatsModel {
         if(count_human_dna == 0){
             ratio = 0;
         } else {
-            ratio = count_mutant_dna / count_human_dna;
+            ratio = ((double) count_mutant_dna) / count_human_dna;
         }
     }
 }
