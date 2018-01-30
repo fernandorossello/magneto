@@ -15,15 +15,20 @@ public class MutantService {
     @Autowired
     private DNARepository dnaRepository;
 
-    public MutantService(){
+    @Autowired
+    private StatsService statsService;
 
+    public MutantService(){
         mutantAnalyser = new MutantAnalyser();
-        dnaRepository = new DNARepository();
     }
 
     public boolean isMutant(String[] dnaStrings) throws InvalidDNAException {
-        DNA dna = mutantAnalyser.analyseDna(dnaStrings);
-        dnaRepository.add(dna);
+        DNA dna = dnaRepository.findOne(DNA.concatDNA(dnaStrings));
+        if(dna == null) {
+            dna = mutantAnalyser.analyseDna(dnaStrings);
+            dnaRepository.save(dna);
+            statsService.updateStats(dna);
+        }
         return dna.isMutant();
     }
 }

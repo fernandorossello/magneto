@@ -10,9 +10,6 @@ import java.util.List;
 public class DNA {
 
     @Id
-    @GeneratedValue
-    private Long id;
-
     @Column(name = "dna")
     private String dnaString;
 
@@ -25,12 +22,22 @@ public class DNA {
     @Transient
     private String[] dnaSecuence;
 
+    public static String concatDNA(String[] dna){
+        return String.join("-",dna);
+    }
+
+    public DNA(){}
+
     public DNA(String[] dna){
         dnaSecuence = dna;
-        dnaString = String.join("-",dna);
+        dnaString = DNA.concatDNA(dna);
         validations = new ArrayList<>();
         validations.add(new SizeValidation());
         validations.add(new CharValidation());
+    }
+
+    public String getDnaString() {
+        return dnaString;
     }
 
     public boolean isMutant() {
