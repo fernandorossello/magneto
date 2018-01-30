@@ -23,8 +23,13 @@ public class MutantController {
             } else {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
             }
-        } catch (Exception e) {
+        } catch (InvalidDNAException e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        } catch (Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 }
