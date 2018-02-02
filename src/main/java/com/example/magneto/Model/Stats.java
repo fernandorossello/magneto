@@ -13,10 +13,10 @@ public class Stats {
     private Long id;
 
     @Column
-    private int mutantsCount;
+    private long mutantsCount;
 
     @Column
-    private int humansCount;
+    private long humansCount;
 
     public Stats(){
         mutantsCount = 0;
@@ -31,11 +31,11 @@ public class Stats {
         humansCount++;
     }
 
-    public int getMutantsCount() {
+    public long getMutantsCount() {
         return mutantsCount;
     }
 
-    public int getHumansCount() {
+    public long getHumansCount() {
         return humansCount;
     }
 }
